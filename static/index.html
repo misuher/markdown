@@ -1,13 +1,14 @@
+<!doctype html>
 <html>
 	<head>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="index.css">
 	</head>
 
 	<body>
 		<div id="input">
 			<form action=/post>
 			  <input type=text name=textfield />
-			  <input type=submit />
 			</form>
 		</div>
 
@@ -15,7 +16,6 @@
 		</div>
 		<script type="text/javascript">
                $(document).ready(function () {
-                 $("#output").append("Waiting for system time..");
                  setInterval("update()", 1000);
                });
                function update() {

@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div id="input">
+			<form action=/post>
+			  <input type=text name=textfield />
+			  <input type=submit />
+			</form>
+		</div>
+
+		<div  id="output">
+		</div>
+		<script type="text/javascript">
+               $(document).ready(function () {
+                 $("#output").append("Waiting for system time..");
+                 setInterval("update()", 1000);
+               });
+               function update() {
+                 $.post("http://localhost:3000/preview", "", function(data, status) {
+                 $("#output").empty();
+                 $("#output").append(data);
+                 });
+               }
+             </script>
+	</body>
+
+</html>

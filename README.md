@@ -9,7 +9,8 @@ I am not a designer so don't expect a fancy UI but if you want to help to make o
 ## Install
 Make sure that you have the Golang ENV variables well set and type
 
-	go get github.com/misuher/markdown
+	git clone https://github.com/misuher/markdown.git markdown
+	cd markdown
 	go run main.go
 
 You must get the server listening in localhost:3000

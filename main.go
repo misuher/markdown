@@ -12,7 +12,6 @@ func main() {
 }
 
 func preview(w http.ResponseWriter, r *http.Request) {
-	log.Println("Ajax Request :")
 	if r.Method != "POST" {
 		http.NotFound(w, r)
 		return
@@ -20,6 +19,6 @@ func preview(w http.ResponseWriter, r *http.Request) {
 
 	field := r.FormValue("textfield")
 	//TODO: markdown parser call
-	log.Println(":", field)
+	log.Println("Ajax:", field)
 	w.Write([]byte(field))
 }

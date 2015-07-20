@@ -6,14 +6,14 @@
 	</head>
 
 	<body>
-		<div id="input">
-			<form action=/post>
-			  <input type=text name=textfield class="t"/>
-			</form>
+		<div id="input-wrap">
+			<textarea autocomplete="off" placeholder="Write markdown here" type=text name=textfield class="t" autofocus></textarea>
 		</div>
 
-		<div  id="output">
+		<div contenteditable="true" id="output-wrap">
+			<p id="output"></p>
 		</div>
+
 		<script type="text/javascript">
                $(document).ready(function () {
                 	setInterval("update()", 100);
@@ -23,7 +23,7 @@
 					var textfield = $(".t").val();
 					$.post("http://localhost:3000/preview", {textfield: textfield}, function(data){
 					$("#output").empty();
-					$("#output").append(data);
+					$("#output").html(data);
 					});
                }
              </script>

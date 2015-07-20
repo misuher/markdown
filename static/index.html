@@ -20,8 +20,8 @@
                });
 
                 function update(){
-					var textfield = $(".t").val();
-					$.post("http://localhost:3000/preview", {textfield: textfield}, function(data){
+					var text = $(".t").val();
+					$.post("http://localhost:3000/preview", {textfield: text}, function(data){
 					$("#output").empty();
 					$("#output").html(data);
 					});

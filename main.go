@@ -1,6 +1,9 @@
 package main
 
-import "net/http"
+import (
+	"log"
+	"net/http"
+)
 
 func main() {
 	http.Handle("/", http.FileServer(http.Dir("./static/"))) //working page
@@ -9,6 +12,7 @@ func main() {
 }
 
 func preview(w http.ResponseWriter, r *http.Request) {
+	log.Println("Ajax Request :")
 	if r.Method != "POST" {
 		http.NotFound(w, r)
 		return
@@ -16,5 +20,6 @@ func preview(w http.ResponseWriter, r *http.Request) {
 
 	field := r.FormValue("textfield")
 	//TODO: markdown parser call
+	log.Println(":", field)
 	w.Write([]byte(field))
 }

@@ -8,7 +8,7 @@
 	<body>
 		<div id="input">
 			<form action=/post>
-			  <input type=text name=textfield />
+			  <input type=text name=textfield class="t"/>
 			</form>
 		</div>
 
@@ -16,13 +16,15 @@
 		</div>
 		<script type="text/javascript">
                $(document).ready(function () {
-                 setInterval("update()", 1000);
+                	setInterval("update()", 100);
                });
-               function update() {
-                 $.post("http://localhost:3000/preview", "", function(data, status) {
-                 $("#output").empty();
-                 $("#output").append(data);
-                 });
+
+                function update(){
+					var textfield = $(".t").val();
+					$.post("http://localhost:3000/preview", {textfield: textfield}, function(data){
+					$("#output").empty();
+					$("#output").append(data);
+					});
                }
              </script>
 	</body>

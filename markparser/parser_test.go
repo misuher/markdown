@@ -1,8 +1,10 @@
-package markdown
+package markdown_test
 
 import (
 	"strings"
 	"testing"
+
+	. "github.com/misuher/markdown/markparser"
 )
 
 func TestMarkdown(t *testing.T) {
@@ -17,7 +19,7 @@ func TestMarkdown(t *testing.T) {
 		{"\x00", ""},
 	}
 
-	for pos, elem := range tests {
+	for _, elem := range tests {
 		p := NewParser(strings.NewReader(elem.input))
 		result := p.Markdown()
 

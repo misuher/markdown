@@ -39,34 +39,34 @@ func (p *Parser) nextState(state stateFn) stateFn {
 func (p *Parser) stateParse() stateFn {
 	item := p.s.Scan()
 
-	switch item.tok {
+	switch item.Tok {
 	case HASH, DOUBLEHASH, TRIPLEHASH, QUADHASH:
-		return p.stateHash(item.tok)
+		return p.stateHash(item.Tok)
 	case ASTERISK, DOUBLEASTERISK:
-		return p.stateAsterisk(item.tok)
+		return p.stateAsterisk(item.Tok)
 	case TAB:
 		return p.stateTab()
 	case NL, WS:
 		return p.stateParse()
-	case LITERAL:
-		return p.stateLiteral()
 	case EOF:
 		return nil
+	default:
+		return p.stateLiteral()
 	}
 }
 
 func (p *Parser) stateHash(tok Token) stateFn {
-
+	return nil
 }
 
 func (p *Parser) stateAsterisk(tok Token) stateFn {
-
+	return nil
 }
 
 func (p *Parser) stateTab() stateFn {
-
+	return nil
 }
 
 func (p *Parser) stateLiteral() stateFn {
-
+	return nil
 }

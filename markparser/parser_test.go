@@ -12,8 +12,8 @@ func TestMarkdown(t *testing.T) {
 		input    string
 		expected string
 	}{
-		{"normal", "<p>normal</p>"},
-		{"text with spaces", "<p>text with spaces</p>"},
+		{"normal", "normal"},
+		{"text with spaces", "text with spaces"},
 		{"# header", "<h1>header</h1>"},
 		{"## header", "<h2>header</h2>"},
 		{"### header", "<h3>header</h3>"},

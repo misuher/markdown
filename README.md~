@@ -1,7 +1,5 @@
 # Simple Markdown parser
 
-![preview](http://github.com/misuher/markdown/preview.png)
-
 This is a simple exercise to implement a markdown parser with some kind of UI
 It is intended tu run as a webserver and provide the UI in the browser
 

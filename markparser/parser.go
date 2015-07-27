@@ -54,7 +54,7 @@ func (p *Parser) stateParse() stateFn {
 	case TAB:
 		return p.stateTab()
 	case WS:
-		return p.stateParse()
+		return p.stateLiteral(item)
 	case NL:
 		return p.stateNewLine()
 	case EXCLAMATION:
@@ -230,7 +230,7 @@ func (p *Parser) stateTab() stateFn {
 }
 
 func (p *Parser) stateLiteral(it Item) stateFn {
-	p.output.WriteString("<p>" + it.Lit + "</p>")
+	p.output.WriteString(it.Lit)
 	return p.stateParse()
 }
 
@@ -264,7 +264,7 @@ func (p *Parser) stateExclamation() stateFn {
 	if itemURL.Tok != LITERAL {
 		return nil
 	}
-	p.output.WriteString("<img scr=\"" + itemURL.Lit + "\" alt=\"" + itemText.Lit + "\"/>")
+	p.output.WriteString("<img src=\"" + itemURL.Lit + "\" alt=\"" + itemText.Lit + "\"/>")
 
 	p.lastItem = p.s.Scan()
 	if p.lastItem.Tok != PARANCLOSE {

@@ -157,7 +157,7 @@ func isAlphanum(ch rune) bool {
 }
 
 func isNotToken(ch rune) bool {
-	notTokens := ":/.,<{}^%=@~&-_"
+	notTokens := ":/.,<{}^%=@~&-_ñ"
 	for _, elem := range notTokens {
 		if elem == ch {
 			return true

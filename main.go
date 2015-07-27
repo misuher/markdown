@@ -3,6 +3,9 @@ package main
 import (
 	"log"
 	"net/http"
+	"strings"
+
+	"github.com/misuher/markdown/markparser"
 )
 
 func main() {
@@ -18,7 +21,7 @@ func preview(w http.ResponseWriter, r *http.Request) {
 	}
 
 	field := r.FormValue("textfield")
-	//TODO: markdown parser call
+	mark := markdown.NewParser(strings.NewReader(field))
 	log.Println("Ajax:", field)
-	w.Write([]byte(field))
+	w.Write([]byte(mark.Markdown()))
 }

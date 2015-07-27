@@ -2,7 +2,6 @@ package markdown
 
 import (
 	"bytes"
-	"fmt"
 	"io"
 )
 
@@ -137,34 +136,7 @@ func (p *Parser) stateSingleAsterisk() stateFn {
 
 	switch p.lastItem.Tok {
 	case WS:
-		p.output.WriteString("<ul>")
-		p.lastItem = p.s.Scan()
-		for {
-			if p.lastItem.Tok != LITERAL {
-				break
-			}
-			p.output.WriteString("<li>" + p.lastItem.Lit + "</li>")
-
-			p.lastItem = p.s.Scan()
-			if p.lastItem.Tok != NL {
-				fmt.Println("making list: not a NL")
-				break
-			}
-
-			p.lastItem = p.s.Scan()
-			if p.lastItem.Tok != ASTERISK {
-				fmt.Println("making list: not an ASTERISK")
-				break
-			}
-
-			p.lastItem = p.s.Scan()
-			if p.lastItem.Tok != WS {
-				fmt.Println("making list: not a WS")
-				break
-			}
-		}
-		p.output.WriteString("</ul>")
-		break
+		return p.stateList()
 
 	case LITERAL:
 		p.output.WriteString("<em>" + p.lastItem.Lit + "</em>")
@@ -177,28 +149,68 @@ func (p *Parser) stateSingleAsterisk() stateFn {
 	return p.stateParse()
 }
 
+func (p *Parser) stateList() stateFn {
+	p.output.WriteString("<ul>")
+	p.lastItem = p.s.Scan()
+	for {
+		if p.lastItem.Tok != LITERAL {
+			p.unscan()
+			break
+		}
+		p.output.WriteString("<li>" + p.lastItem.Lit + "</li>")
+
+		p.lastItem = p.s.Scan()
+		if p.lastItem.Tok != NL {
+			p.unscan()
+			break
+		}
+
+		p.lastItem = p.s.Scan()
+		if p.lastItem.Tok != ASTERISK {
+			p.unscan()
+			break
+		}
+
+		p.lastItem = p.s.Scan()
+		if p.lastItem.Tok != WS {
+			p.unscan()
+			break
+		}
+
+		p.lastItem = p.s.Scan()
+	}
+	p.output.WriteString("</ul>")
+	return p.stateParse()
+}
+
 func (p *Parser) stateGT() stateFn {
 	p.output.WriteString("<blockquote><p>")
 	for {
 		p.lastItem = p.s.Scan()
 		if p.lastItem.Tok != WS {
-			return nil
+			p.unscan()
+			break
 		}
 
 		p.lastItem = p.s.Scan()
 		if p.lastItem.Tok != LITERAL {
-			return nil
+			p.unscan()
+			break
 		}
+		p.output.WriteString(p.lastItem.Lit)
 
 		p.lastItem = p.s.Scan()
 		if p.lastItem.Tok != NL {
-			return nil
+			p.unscan()
+			break
 		}
 
 		p.lastItem = p.s.Scan()
 		if p.lastItem.Tok != GT {
+			p.unscan()
 			break
 		}
+		p.output.WriteString(" ")
 	}
 	p.output.WriteString("</p></blockquote>")
 	return p.stateParse()

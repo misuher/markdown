@@ -1,3 +1,4 @@
+![build label](https://img.shields.io/travis/joyent/node/v0.6.svg)
 # Simple Markdown parser
 
 ![preview](http://github.com/misuher/markdown/preview.png)

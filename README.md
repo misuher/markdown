@@ -1,7 +1,7 @@
 ![build label](https://img.shields.io/travis/joyent/node/v0.6.svg)
 # Simple Markdown parser
 
-![preview](http://github.com/misuher/markdown/preview.png)
+![preview](preview.png?raw=true)
 
 This is a simple exercise to implement a markdown parser with some kind of UI
 It is intended tu run as a webserver and provide the UI in the browser

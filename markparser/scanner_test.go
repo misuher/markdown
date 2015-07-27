@@ -19,6 +19,8 @@ func TestScan(t *testing.T) {
 		{"####", Item{QUADHASH, "####"}},
 		{"*", Item{ASTERISK, "*"}},
 		{"**", Item{DOUBLEASTERISK, "**"}},
+		{"***", Item{TRIPLEASTERISK, "***"}},
+		{"****", Item{LITERAL, "****"}},
 		{" ", Item{WS, " "}},
 		{"\t", Item{TAB, "\t"}},
 		{"\n", Item{NL, "\n"}},
@@ -27,10 +29,12 @@ func TestScan(t *testing.T) {
 		{"(", Item{PARANOPEN, "("}},
 		{")", Item{PARANCLOSE, ")"}},
 		{"!", Item{EXCLAMATION, "!"}},
+		{">", Item{GT, ">"}},
 		{"aaaa", Item{LITERAL, "aaaa"}},
 		{"AAAA", Item{LITERAL, "AAAA"}},
 		{"1234", Item{LITERAL, "1234"}},
 		{"a1b2", Item{LITERAL, "a1b2"}},
+		{"text with spaces", Item{LITERAL, "text with spaces"}},
 	}
 
 	for pos, elem := range tests {

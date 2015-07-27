@@ -12,7 +12,8 @@ func TestMarkdown(t *testing.T) {
 		input    string
 		expected string
 	}{
-		{"normal text", "<p>normal text</p>"},
+		{"normal", "<p>normal</p>"},
+		{"text with spaces", "<p>text with spaces</p>"},
 		{"# header", "<h1>header</h1>"},
 		{"## header", "<h2>header</h2>"},
 		{"### header", "<h3>header</h3>"},
@@ -20,14 +21,13 @@ func TestMarkdown(t *testing.T) {
 		{"*Italic*", "<em>Italic</em>"},
 		{"**bold**", "<strong>bold</strong>"},
 		{"* item1\n* item2\n* item3", "<ul><li>item1</li><li>item2</li><li>item3</li></ul>"},
-		{"![Alt text](url)", "<img scr='url' alt='Alt text'/>"},
-		{"[text](url)", "<a href='url'>text</a>"},
+		{"![Alt text](url)", "<img scr=\"url\" alt=\"Alt text\"/>"},
+		{"[text](http://www.g.com)", "<a href=\"http://www.g.com\">text</a>"},
 		{"> text", "<blockquote><p>text</p></blockquote>"},
 		{"> line1\n> line2", "<blockquote><p>line1 line2</p></blockquote>"},
 		{"\tcode", "<pre><code>code</code></pre>"},
 		{"\t code", "<pre><code>code</code></pre>"},
 		{"    code", "<pre><code>code</code></pre>"},
-		{"*Italic*", "<i>Italic</i>"},
 		{"***", "<hr />"},
 		{"\x00", ""},
 	}

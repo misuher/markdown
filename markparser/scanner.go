@@ -41,6 +41,8 @@ func (s *Scanner) Scan() Item {
 		return Item{Tok: PARANOPEN, Lit: string(ch)}
 	case ')':
 		return Item{Tok: PARANCLOSE, Lit: string(ch)}
+	case '>':
+		return Item{Tok: GT, Lit: string(ch)}
 	case ' ':
 		return s.scanWhitespace(ch)
 	case '\t':
@@ -52,7 +54,6 @@ func (s *Scanner) Scan() Item {
 	default:
 		return s.scanLiteral(ch)
 	}
-
 }
 
 //scanHash detects a chain of hashes+whitespace and returns its token
@@ -103,7 +104,7 @@ func (s *Scanner) scanWhitespace(ch rune) Item {
 func (s *Scanner) scanLiteral(ch rune) Item {
 	var literal bytes.Buffer
 
-	for isAlphanum(ch) {
+	for isAlphanum(ch) || isNotToken(ch) || isWhiteSpace(ch) {
 		literal.WriteString(string(ch))
 		ch = s.read()
 	}
@@ -114,13 +115,29 @@ func (s *Scanner) scanLiteral(ch rune) Item {
 
 //scanAsterisks detecs if it is a single or double asterisk token
 func (s *Scanner) scanAsterisks() Item {
+	counter := 1
 	ch := s.read()
-
-	if ch == '*' {
-		return Item{DOUBLEASTERISK, "**"}
+	for ch == '*' {
+		counter++
+		ch = s.read()
 	}
+
 	s.unread()
-	return Item{ASTERISK, "*"}
+	switch counter {
+	case 1:
+		return Item{ASTERISK, "*"}
+	case 2:
+		return Item{DOUBLEASTERISK, "**"}
+	case 3:
+		return Item{TRIPLEASTERISK, "***"}
+	}
+
+	//if there is more than 3 asterisk we will treat them like a literal
+	var lit bytes.Buffer
+	for i := 0; i < counter; i++ {
+		lit.WriteString("*")
+	}
+	return Item{LITERAL, lit.String()}
 }
 
 func (s *Scanner) read() rune {
@@ -137,6 +154,20 @@ func (s *Scanner) unread() {
 
 func isAlphanum(ch rune) bool {
 	return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z' || ch >= '1' && ch <= '9'
+}
+
+func isNotToken(ch rune) bool {
+	notTokens := ":/.,<{}^%=@~&-_"
+	for _, elem := range notTokens {
+		if elem == ch {
+			return true
+		}
+	}
+	return false
+}
+
+func isWhiteSpace(ch rune) bool {
+	return string(ch) == " "
 }
 
 var eof = rune(0)

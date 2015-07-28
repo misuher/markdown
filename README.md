@@ -1,6 +1,7 @@
 ![build label](https://img.shields.io/travis/joyent/node/v0.6.svg)
 # Simple Markdown parser
 Simple markdown parser and a server to run localhost a working interface to render it in real time
+
 ![preview](preview.png?raw=true)
 
 This is a simple exercise to implement a markdown parser with some kind of UI

@@ -1,14 +1,14 @@
 ![build label](https://img.shields.io/travis/joyent/node/v0.6.svg)
 # Simple Markdown parser
-Simple markdown parser and a server to run localhost a working interface to render it in real time
+
+Simple markdown parser and a local server to render it in real time
 
 ![preview](preview.png?raw=true)
 
 This is a simple exercise to implement a markdown parser with some kind of UI
 It is intended tu run as a webserver and provide the UI in the browser
 
-This project is under development, be patient
-I am not a designer so don't expect a fancy UI but if you want to help to make one you are welcome ;)
+This project have reached a stable version so you are free to try it out
 
 ## Install
 Make sure that you have the Golang ENV variables well set and type

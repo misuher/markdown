@@ -21,10 +21,20 @@
 
                 function update(){
 					var text = $(".t").val();
-					$.post("http://localhost:3000/preview", {textfield: text}, function(data){
-					$("#output").empty();
-					$("#output").html(data);
+					$.support.cors = true;
+					$.ajax({
+   						 url: "http://www.misuher.com/markdown/preview",
+						 data: {textfield: text},
+						 type: "POST",
+						 crossDomain: true, 
+						 xhrFields: { withCredentials: false },
+						 headers: {"Access-Control-Allow-Origin": "*"},
+						 success: function(data) {console.log(data); $("#output").empty(); $("#output").html(data); }
 					});
+					//$.post("http://misuher.com/markdown/preview", {textfield: text}, function(data){
+					//	$("#output").empty();
+					//	$("#output").html(data);
+					//});
                }
              </script>
 	</body>

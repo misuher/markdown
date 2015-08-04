@@ -22,6 +22,9 @@ func preview(w http.ResponseWriter, r *http.Request) {
 
 	field := r.FormValue("textfield")
 	mark := markdown.NewParser(strings.NewReader(field))
-	log.Println("Ajax:", field)
+	
+	if field!=""{
+		log.Println("Ajax:", field)
+	}
 	w.Write([]byte(mark.Markdown()))
 }
